@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incoterms 2020 Expert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a; /* أزرق داكن رسمي */
+            --accent: #d97706; /* برتقالي للتمييز */
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { font-size: 1.4rem; color: var(--primary); margin-bottom: 5px; }
+        .progress-bar { height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent); width: 25%; transition: 0.5s; }
+        
+        .step { display: none; }
+        .step.active { display: block; animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        p.question-text { font-weight: bold; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary); }
+
+        .btn-group { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: right;
+            font-weight: 500;
+        }
+        .option-btn:hover, .option-btn:active { background: #eff6ff; border-color: var(--primary); color: var(--primary); }
+        
+        .result-card {
+            background: #1e3a8a;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .result-card h2 { font-size: 2.5rem; margin: 10px 0; color: #fbbf24; }
+        .details-box { text-align: right; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 0.9rem; }
+        .reset-btn {
+            width: 100%; margin-top: 20px; background: #64748b; color: white; border: none;
+            padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <h1>مستشار اللوجستيك الذكي</h1>
+        <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+    </div>
+
+    <div id="step1" class="step active">
+        <p class="question-text">1. ما هي طبيعة الشحنة ووسيلة النقل؟</p>
+        <div class="btn-group">
+            <button class="option-btn" onclick="nextStep(2, 50, 'sea')">🚢 بضائع صب (بحر/نهر فقط)</button>
+            <button class="option-btn" onclick="nextStep(2, 50, 'any')">📦 حاويات / نقل جوي / بري / متعدد</button>
+        </div>
+    </div>
+
+    <div id="step2-any" class="step">
+        <p class="question-text">2. أين تريد تسليم البضاعة للمشتري؟</p>
+        <div class="btn-group">
+            <button class="option-btn" onclick="showResult('EXW', 'تسليم من أرض المصنع: المشتري يتحمل كل شيء.')">عند باب مصنعي/مخزني</button>
+            <button class="option-btn" onclick="nextStep(3, 75, 'any-main')">في مكان متفق عليه (ميناء/مطار/محطة)</button>
+            <button class="option-btn" onclick="showResult('DDP', 'تسليم في موقع المشتري: البائع يتحمل الجمارك والتوصيل.')">في مستودع المشتري (شامل الجمارك)</button>
+        </div>
+    </div>
+
+    <div id="step2-sea" class="step">
+        <p class="question-text">2. ما هو مدى مسؤوليتك في الميناء؟</p>
+        <div class="btn-group">
+            <button class="option-btn" onclick="showResult('FAS', 'بجانب السفينة: تنتهي مسؤوليتك على الرصيف بجانب السفينة.')">بجانب السفينة فقط (FAS)</button>
+            <button class="option-btn" onclick="showResult('FOB', 'فوق السفينة: تنتهي مسؤوليتك بمجرد عبور البضاعة حاجز السفينة.')">تحميل البضاعة فوق السفينة (FOB)</button>
+            <button class="option-btn" onclick="nextStep(3, 85, 'sea-cost')">أريد دفع تكاليف الشحن الدولي أيضاً</button>
+        </div>
+    </div>
+
+    <div id="step3-any-main" class="step">
+        <p class="question-text">3. هل تريد تغطية التأمين الدولي؟</p>
+        <div class="btn-group">
+            <button class="option-btn" onclick="showResult('CPT', 'الشحن مدفوع: أنت تدفع الشحن، والمشتري يتحمل التأمين.')">أدفع الشحن فقط (CPT)</button>
+            <button class="option-btn" onclick="showResult('CIP', 'الشحن والتأمين مدفوعان: أنت ملزم بتأمين البضاعة للمشتري.')">أدفع الشحن + التأمين (CIP)</button>
+        </div>
+    </div>
+
+    <div id="step3-sea-cost" class="step">
+        <p class="question-text">3. هل ستتحمل تكلفة التأمين البحري؟</p>
+        <div class="btn-group">
+            <button class="option-btn" onclick="showResult('CFR', 'التكلفة والشحن: تدفع الشحن للميناء والمشتري يؤمن على بضاعته.')">أدفع الشحن فقط (CFR)</button>
+            <button class="option-btn" onclick="showResult('CIF', 'التأمين والشحن: أنت تدفع كل شيء حتى وصول السفينة لميناء المشتري.')">أدفع الشحن + التأمين (CIF)</button>
+        </div>
+    </div>
+
+    <div id="result-step" class="step">
+        <div class="result-card">
+            <span>القاعدة المقترحة هي:</span>
+            <h2 id="final-code"></h2>
+            <div class="details-box" id="final-desc"></div>
+        </div>
+        <button class="reset-btn" onclick="location.reload()">إعادة التحليل</button>
+    </div>
+</div>
+
+<script>
+    function nextStep(stepNum, progress, type) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('progress').style.width = progress + "%";
+        
+        if(type === 'sea') document.getElementById('step2-sea').classList.add('active');
+        else if(type === 'any') document.getElementById('step2-any').classList.add('active');
+        else if(type === 'any-main') document.getElementById('step3-any-main').classList.add('active');
+        else if(type === 'sea-cost') document.getElementById('step3-sea-cost').classList.add('active');
+    }
+
+    function showResult(code, desc) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('progress').style.width = "100%";
+        document.getElementById('result-step').classList.add('active');
+        document.getElementById('final-code').innerText = code;
+        document.getElementById('final-desc').innerText = desc;
+    }
+</script>
+
+</body>
+</html>
+
