@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incoterms 2020 Expert</title>
+    <title>Incoterms 2020 Expert | مستشار التجارة الدولية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a8a; /* أزرق داكن رسمي */
-            --accent: #d97706; /* برتقالي للتمييز */
-            --bg: #f1f5f9;
+            --primary: #1e3a8a; /* أزرق ملكي رسمي */
+            --accent: #d97706; /* برتقالي للمسات التميز */
+            --bg: #f8fafc;
             --card: #ffffff;
-            --text: #1e293b;
+            --text: #0f172a;
         }
         body {
             font-family: 'Tajawal', sans-serif;
@@ -21,55 +21,58 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
+            padding: 20px;
         }
         .app-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             background: var(--card);
-            border-radius: 20px;
+            border-radius: 25px;
             padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .header { text-align: center; margin-bottom: 25px; }
-        .header h1 { font-size: 1.4rem; color: var(--primary); margin-bottom: 5px; }
-        .progress-bar { height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--accent); width: 25%; transition: 0.5s; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { font-size: 1.3rem; color: var(--primary); margin: 10px 0; }
+        .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin: 20px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); width: 20%; transition: 0.6s ease; }
         
         .step { display: none; }
         .step.active { display: block; animation: slideIn 0.4s ease-out; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        p.question-text { font-weight: bold; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary); }
+        .question-box { background: #f1f5f9; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-right: 4px solid var(--accent); }
+        .question-text { font-weight: bold; font-size: 1.05rem; color: var(--text); margin: 0; }
 
         .btn-group { display: flex; flex-direction: column; gap: 12px; }
         .option-btn {
             background: #fff;
             border: 2px solid #e2e8f0;
             padding: 16px;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 15px;
+            font-size: 0.95rem;
             color: var(--text);
             cursor: pointer;
             transition: 0.2s;
             text-align: right;
             font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        .option-btn:hover, .option-btn:active { background: #eff6ff; border-color: var(--primary); color: var(--primary); }
+        .option-btn:active { background: #e0e7ff; border-color: var(--primary); transform: scale(0.97); }
         
         .result-card {
-            background: #1e3a8a;
+            background: var(--primary);
             color: white;
             padding: 25px;
-            border-radius: 15px;
-            margin-top: 20px;
+            border-radius: 20px;
             text-align: center;
+            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
         }
-        .result-card h2 { font-size: 2.5rem; margin: 10px 0; color: #fbbf24; }
-        .details-box { text-align: right; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 0.9rem; }
+        .result-card span { font-size: 0.9rem; opacity: 0.9; }
+        .result-card h2 { font-size: 3rem; margin: 10px 0; color: #fbbf24; }
+        .details-box { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 12px; margin-top: 15px; text-align: right; font-size: 0.95rem; line-height: 1.5; }
         .reset-btn {
-            width: 100%; margin-top: 20px; background: #64748b; color: white; border: none;
-            padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer;
+            width: 100%; margin-top: 25px; background: #475569; color: white; border: none;
+            padding: 16px; border-radius: 15px; font-weight: bold; cursor: pointer;
         }
     </style>
 </head>
@@ -77,59 +80,60 @@
 
 <div class="app-container">
     <div class="header">
-        <h1>مستشار اللوجستيك الذكي</h1>
+        <div style="font-size: 45px;">📊</div>
+        <h1>مستشار Incoterms الذكي</h1>
         <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
     </div>
 
     <div id="step1" class="step active">
-        <p class="question-text">1. ما هي طبيعة الشحنة ووسيلة النقل؟</p>
+        <div class="question-box"><p class="question-text">1. حدد نوع وسيلة النقل المستخدمة:</p></div>
         <div class="btn-group">
-            <button class="option-btn" onclick="nextStep(2, 50, 'sea')">🚢 بضائع صب (بحر/نهر فقط)</button>
-            <button class="option-btn" onclick="nextStep(2, 50, 'any')">📦 حاويات / نقل جوي / بري / متعدد</button>
+            <button class="option-btn" onclick="nextStep(2, 40, 'sea')">🚢 النقل البحري أو النهري فقط</button>
+            <button class="option-btn" onclick="nextStep(2, 40, 'any')">📦 متعدد الوسائط (حاويات، جوي، بري)</button>
         </div>
     </div>
 
     <div id="step2-any" class="step">
-        <p class="question-text">2. أين تريد تسليم البضاعة للمشتري؟</p>
+        <div class="question-box"><p class="question-text">2. أين تنتهي مسؤولية التسليم؟</p></div>
         <div class="btn-group">
-            <button class="option-btn" onclick="showResult('EXW', 'تسليم من أرض المصنع: المشتري يتحمل كل شيء.')">عند باب مصنعي/مخزني</button>
-            <button class="option-btn" onclick="nextStep(3, 75, 'any-main')">في مكان متفق عليه (ميناء/مطار/محطة)</button>
-            <button class="option-btn" onclick="showResult('DDP', 'تسليم في موقع المشتري: البائع يتحمل الجمارك والتوصيل.')">في مستودع المشتري (شامل الجمارك)</button>
+            <button class="option-btn" onclick="showResult('EXW', 'تسليم أرض المصنع: المشتري يتحمل كافة التكاليف والمخاطر من باب مستودعك.')">عند باب مستودع البائع</button>
+            <button class="option-btn" onclick="nextStep(3, 70, 'any-main')">في نقطة وسيطة (ميناء أو محطة)</button>
+            <button class="option-btn" onclick="showResult('DDP', 'تسليم خالص الرسوم: أنت تتحمل كل شيء بما في ذلك الجمارك والتوصيل لباب المشتري.')">عند باب مستودع المشتري</button>
         </div>
     </div>
 
     <div id="step2-sea" class="step">
-        <p class="question-text">2. ما هو مدى مسؤوليتك في الميناء؟</p>
+        <div class="question-box"><p class="question-text">2. ما هي نقطة انتقال المخاطر؟</p></div>
         <div class="btn-group">
-            <button class="option-btn" onclick="showResult('FAS', 'بجانب السفينة: تنتهي مسؤوليتك على الرصيف بجانب السفينة.')">بجانب السفينة فقط (FAS)</button>
-            <button class="option-btn" onclick="showResult('FOB', 'فوق السفينة: تنتهي مسؤوليتك بمجرد عبور البضاعة حاجز السفينة.')">تحميل البضاعة فوق السفينة (FOB)</button>
-            <button class="option-btn" onclick="nextStep(3, 85, 'sea-cost')">أريد دفع تكاليف الشحن الدولي أيضاً</button>
+            <button class="option-btn" onclick="showResult('FAS', 'بجانب السفينة: تنتهي مسؤوليتك بوضع البضاعة على الرصيف بجوار السفينة.')">بجانب السفينة في ميناء الشحن</button>
+            <button class="option-btn" onclick="showResult('FOB', 'تسليم على ظهر السفينة: تنتهي مسؤوليتك بمجرد عبور البضاعة حاجز السفينة.')">تحميل البضاعة فوق السفينة</button>
+            <button class="option-btn" onclick="nextStep(3, 80, 'sea-cost')">تحمل تكاليف الشحن الدولي للمشتري</button>
         </div>
     </div>
 
     <div id="step3-any-main" class="step">
-        <p class="question-text">3. هل تريد تغطية التأمين الدولي؟</p>
+        <div class="question-box"><p class="question-text">3. هل يتضمن التزامك دفع التأمين؟</p></div>
         <div class="btn-group">
-            <button class="option-btn" onclick="showResult('CPT', 'الشحن مدفوع: أنت تدفع الشحن، والمشتري يتحمل التأمين.')">أدفع الشحن فقط (CPT)</button>
-            <button class="option-btn" onclick="showResult('CIP', 'الشحن والتأمين مدفوعان: أنت ملزم بتأمين البضاعة للمشتري.')">أدفع الشحن + التأمين (CIP)</button>
+            <button class="option-btn" onclick="showResult('CPT', 'الشحن مدفوع إلى: تدفع تكلفة النقل، لكن المخاطر تنتقل للمشتري عند تسليمها للناقل الأول.')">أدفع الشحن فقط</button>
+            <button class="option-btn" onclick="showResult('CIP', 'الشحن والتأمين مدفوعان: أنت ملزم بدفع الشحن وتغطية تأمينية شاملة لصالح المشتري.')">أتحمل الشحن + التأمين</button>
         </div>
     </div>
 
     <div id="step3-sea-cost" class="step">
-        <p class="question-text">3. هل ستتحمل تكلفة التأمين البحري؟</p>
+        <div class="question-box"><p class="question-text">3. هل ستغطي تكاليف التأمين البحري؟</p></div>
         <div class="btn-group">
-            <button class="option-btn" onclick="showResult('CFR', 'التكلفة والشحن: تدفع الشحن للميناء والمشتري يؤمن على بضاعته.')">أدفع الشحن فقط (CFR)</button>
-            <button class="option-btn" onclick="showResult('CIF', 'التأمين والشحن: أنت تدفع كل شيء حتى وصول السفينة لميناء المشتري.')">أدفع الشحن + التأمين (CIF)</button>
+            <button class="option-btn" onclick="showResult('CFR', 'التكلفة والشحن: أنت تدفع أجور الشحن لميناء الوصول، لكن التأمين مسؤولية المشتري.')">أدفع تكلفة الشحن فقط</button>
+            <button class="option-btn" onclick="showResult('CIF', 'التأمين والشحن: أنت تدفع كل التكاليف حتى وصول البضاعة لميناء المشتري مع التأمين عليها.')">أدفع الشحن + التأمين</button>
         </div>
     </div>
 
     <div id="result-step" class="step">
         <div class="result-card">
-            <span>القاعدة المقترحة هي:</span>
+            <span>القاعدة المقترحة لشحنتك:</span>
             <h2 id="final-code"></h2>
             <div class="details-box" id="final-desc"></div>
         </div>
-        <button class="reset-btn" onclick="location.reload()">إعادة التحليل</button>
+        <button class="reset-btn" onclick="location.reload()">تحليل شحنة جديدة</button>
     </div>
 </div>
 
@@ -155,4 +159,3 @@
 
 </body>
 </html>
-
